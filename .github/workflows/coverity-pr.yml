@@ -1,0 +1,19 @@
+name: Scan Pull Request with Coverity
+
+on: [pull_request]
+
+jobs:
+  scan:
+    name: Scan Project Pull Request with Coverity
+    runs-on: ubuntu-latest
+    container:
+      image: jfitzpat/cov-thin-client:2022.12.0
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: scan
+        shell: bash
+        env:
+          COVERITY_CLI_CONNECT_USERNAME: ${{ secrets.COVERITY_CLI_CONNECT_USERNAME }}
+          COVERITY_CLI_CONNECT_PASSWORD: ${{ secrets.COVERITY_CLI_CONNECT_PASSWORD }}
+        run: coverity scan -o commit.connect.comparison-report=comparison-report.json
