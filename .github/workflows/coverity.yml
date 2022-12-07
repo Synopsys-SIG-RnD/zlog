@@ -12,10 +12,10 @@ jobs:
       image: jfitzpat/cov-thin-client:2022.12.0
 
     steps:
-      - shell: bash
+      - uses: actions/checkout@v3
+      - name: scan
+        shell: bash
         env:
           COVERITY_CLI_CONNECT_USERNAME: ${{ secrets.COVERITY_CLI_CONNECT_USERNAME }}
           COVERITY_CLI_CONNECT_PASSWORD: ${{ secrets.COVERITY_CLI_CONNECT_PASSWORD }}
-      - uses: actions/checkout@v3
-      - name: scan
         run: coverity scan
