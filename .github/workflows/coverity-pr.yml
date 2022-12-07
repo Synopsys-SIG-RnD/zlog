@@ -16,4 +16,6 @@ jobs:
         env:
           COVERITY_CLI_CONNECT_USERNAME: ${{ secrets.COVERITY_CLI_CONNECT_USERNAME }}
           COVERITY_CLI_CONNECT_PASSWORD: ${{ secrets.COVERITY_CLI_CONNECT_PASSWORD }}
-        run: coverity scan -o commit.connect.comparison-report=comparison-report.json
+        run: |
+          coverity scan -o commit.connect.comparison-report=comparison-report.json
+          cat comparison-report.json | jq '.issues | [.[] | .["file"] = .strippedMainEventFilePathname | .["line"] = .mainEventLineNumber | .["title"] = .issueTypeDescription | .["message"] = .mainEventDescription | .["raw_details"] = .localEffect |  del(.strippedMainEventFilePathname, .mainEventLineNumber, .issueTypeDescription, .mainEventDescription, .mergeKey, .mainEventColumnNumber, .cweCategory, .presentInReferenceSnapshot, .classification, .localEffect, .impact) ]'
