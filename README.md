@@ -118,4 +118,4 @@ In the configuration file log messages in the category "my_cat" and a level of D
  * cmake verion: https://github.com/lisongmin/zlog
  * windows version: https://github.com/lopsd07/WinZlog
 
-
+This is another test.
