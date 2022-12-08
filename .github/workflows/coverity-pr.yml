@@ -22,6 +22,6 @@ jobs:
       - name: annotate
         uses: yuzutech/annotations-action@v0.4.0
         with:
-          repo-token: "${{ secrets.ANNOTATE_PR_TOKEN }}"
-          title: Coverity Issues
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          title: Annotate Pull Request with Coverity Issues
           input: ./annotations.json
