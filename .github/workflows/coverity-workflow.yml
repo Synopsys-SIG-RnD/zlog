@@ -1,0 +1,21 @@
+name: Scan with Coverity
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  scan:
+    name: Scan Project with Coverity
+    runs-on: ubuntu-latest
+    container:
+      image: jfitzpat/cov-thin-client:2022.12.0
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: scan
+        shell: bash
+        env:
+          COVERITY_CLI_CONNECT_USERNAME: ${{ secrets.COVERITY_CLI_CONNECT_USERNAME }}
+          COVERITY_CLI_CONNECT_PASSWORD: ${{ secrets.COVERITY_CLI_CONNECT_PASSWORD }}
+        run: coverity scan
