@@ -80,7 +80,7 @@ void zlog_buf_del(zlog_buf_t * a_buf)
 	//zc_assert(a_buf,);
 	if (a_buf->start) free(a_buf->start);
 	zc_debug("zlog_buf_del[%p]", a_buf);
-    free(a_buf);
+    //free(a_buf);
 	return;
 }
 
