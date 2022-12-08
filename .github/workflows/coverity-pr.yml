@@ -18,7 +18,7 @@ jobs:
           COVERITY_CLI_CONNECT_PASSWORD: ${{ secrets.COVERITY_CLI_CONNECT_PASSWORD }}
         run: |
           coverity scan -o commit.connect.comparison-report=comparison-report.json
-          cat comparison-report.json | jq '.issues | [.[] | .["file"] = .strippedMainEventFilePathname | .["line"] = .mainEventLineNumber | .["title"] = .issueTypeDescription | .["message"] = .mainEventDescription | .["raw_details"] = .localEffect |  del(.strippedMainEventFilePathname, .mainEventLineNumber, .issueTypeDescription, .mainEventDescription, .mergeKey, .mainEventColumnNumber, .cweCategory, .presentInReferenceSnapshot, .classification, .localEffect, .impact) ]' > annotations.json
+          cat comparison-report.json | jq -f jq-annotate-filter.txt > annotations.json
       - name: annotate
         uses: yuzutech/annotations-action@v0.4.0
         with:
